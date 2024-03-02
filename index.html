@@ -1,0 +1,362 @@
+<html> 
+  <head>
+    <title>StormyLand Survival Logging Pannel</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background-image: url("images/background.jpg");
+            background-size: 64px;
+        }
+        #wrapper{
+            width: 90%;
+            margin-bottom: 50px;
+            background-color: lightgray;
+            border-radius: 10px;
+        }
+        #header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 25px;
+            background-image: url("images/header.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            height: 150px;
+        }
+        .stormyland{
+            height: 28px;
+            width: 100px;
+            border-radius: 10px;
+        }
+        .queryForm{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .form-select{
+            margin-bottom: 56px;
+        }
+        h3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        .table-div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        @media only screen and (max-width: 800px){
+            #header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 25px;
+            background-image: url("images/header.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            height: 50px;
+            }
+        }
+        @media only screen and (max-width: 890px){
+            table{
+                font-size: 0.8em;
+            }
+        }
+        @media only screen and (max-width: 750px){
+            table{
+                font-size: 0.6em;
+            }
+        }
+        @media only screen and (max-width: 550px){
+            table{
+                font-size: 0.4em;
+            }
+        }
+        @media only screen and (max-width: 576px){
+            #header{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding-top: 25px;
+            background-image: url("images/header.png");
+            background-size: 100%;
+            background-repeat: no-repeat;
+            height: 50px;
+            }
+            .stormyland{
+            height: 28px;
+            width: 100px;
+            border-radius: 10px;
+            margin-top: 20px;
+            }
+            .start-date{
+                margin-top: 10px;
+            }
+            .storm-form{
+                margin-top: -50;
+            }
+            .storm-input{
+                margin-top: -20;
+            }
+            .storm-form2{
+                margin-top: 7;
+            }
+            .storm-input2{
+                margin-top: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div id="wrapper">
+        <div id="header">
+        </div>
+        <h3>Logging Pannel</h3>
+        <hr>
+        <div class="queryForm">
+            <form id="search-form">
+                <div class="container">
+                    <div class="row">
+                      <div class="col-sm">
+                        <label for="players">Players:</label><br>
+                        <select id="players" name="players" class="form-control players-select form-select">
+                        <select id="playersx" name="playersx" class="form-control players-select form-select">
+                      </div>
+                      <div class="col-sm">
+                        <label for="actions" class="storm-form">Actions:</label><br>
+                        <select id="actions"  name="actions" class="form-control actions-select form-select storm-input">
+                        <select id="actionsx" name="actionsx" class="form-control actions-select form-select storm-input"></select>
+                      </div>
+                      <div class="col-sm">
+                        <label for="blocks" class="storm-form">Blocks:</label><br>
+                        <select id="blocks"  name="blocks" class="form-control blocks-select form-select storm-input">
+                        <select id="blocksx" name="blocksx" class="form-control actions-select form-select storm-input"></select>
+                      </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <label for="dimensions" class="storm-form">Dimensions:</label><br>
+                            <select id="dimensions" name="dimensions" class="form-control dimensions-select form-select storm-input">
+                        </div>
+                        <div class="col-sm">
+                            <select id="dimensionsx" class="storm-form2" name="dimensionsx" class="form-control dimensions-select form-select storm-input2">
+                        </div>
+                        <div class="col-sm">
+                            <label for="coords" class="storm-form" >Coordinates</label><br>
+                            <input type="text" id="coords" name="coords" class="form-control storm-input" placeholder="ex: (20, 20, -20)">
+                        </div>
+                        <div class="col-sm">
+                            <label class="start-date storm-form2">Start Date: </label> 
+                                <div id="datepicker" 
+                                    class="input-group date" 
+                                    data-date-format="mm-dd-yyyy"> 
+                                    <input class="form-control storm-input2" type="text" readonly /> 
+                                    <span class="input-group-addon"> 
+                                        <i class="glyphicon glyphicon-calendar"></i> 
+                                    </span> 
+                                </div> 
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" value="Submit" class="btn-primary stormyland" id="submit-form">Search</button>
+            </form>
+        </div>
+        <hr>
+        <div id="result-div" class="table-div"></div>
+        <div id="table-div"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script> 
+        $(function () { 
+            $("#datepicker").datepicker({  
+                autoclose: true,  
+                todayHighlight: true, 
+            }).datepicker('update', new Date()); 
+        }); 
+    </script> 
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            var players;
+            fetch("http://localhost:5000/GetPlayers")
+            .then((response) => {
+                var data = response.text();
+                data.then((string) => {
+                    var playerArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                    select = document.getElementById('players');
+                    var opt = document.createElement('option');
+                    opt.value = "All";
+                    opt.innerHTML = "All";
+                    select.appendChild(opt);
+                    for (var i = 0; i <= playerArray.length - 1; i++){
+                        var opt = document.createElement('option');
+                        opt.value = playerArray[i];
+                        opt.innerHTML = playerArray[i];
+                        select.appendChild(opt);
+                    }
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        });
+
+        $(document).ready(function() {
+            var actions;
+            fetch("http://localhost:5000/GetActions")
+            .then((response) => {
+                var data = response.text();
+                data.then((string) => {
+                    var actionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                    select = document.getElementById('actions');
+                    var opt = document.createElement('option');
+                    opt.value = "All";
+                    opt.innerHTML = "All";
+                    select.appendChild(opt);
+                    for (var i = 0; i <= actionsArray.length - 1; i++){
+                        var opt = document.createElement('option');
+                        opt.value = actionsArray[i];
+                        opt.innerHTML = actionsArray[i];
+                        select.appendChild(opt);
+                    }
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        });
+
+        $(document).ready(function() {
+            var blocks;
+            fetch("http://localhost:5000/GetBlocks")
+            .then((response) => {
+                var data = response.text();
+                data.then((string) => {
+                    var blocksArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                    select = document.getElementById('blocks');
+                    var opt = document.createElement('option');
+                    opt.value = "All";
+                    opt.innerHTML = "All";
+                    select.appendChild(opt);
+                    for (var i = 0; i <= blocksArray.length - 1; i++){
+                        var opt = document.createElement('option');
+                        opt.value = blocksArray[i];
+                        opt.innerHTML = blocksArray[i];
+                        select.appendChild(opt);
+                    }
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        });
+
+        $(document).ready(function() {
+            var dimensions;
+            fetch("http://localhost:5000/GetDimensions")
+            .then((response) => {
+                var data = response.text();
+                data.then((string) => {
+                    var dimensionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                    select = document.getElementById('dimensions');
+                    var opt = document.createElement('option');
+                    opt.value = "All";
+                    opt.innerHTML = "All";
+                    select.appendChild(opt);
+                    for (var i = 0; i <= dimensionsArray.length - 1; i++){
+                        var opt = document.createElement('option');
+                        opt.value = dimensionsArray[i];
+                        opt.innerHTML = dimensionsArray[i];
+                        select.appendChild(opt);
+                    }
+                })
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+        });
+
+        $(document).ready(function ()
+        {       
+            $('#search-form').submit(function(e) {
+                e.preventDefault();
+                $("div#table-div").addClass("table-div");
+                $("div#table-div").html("<h2><b>Loading...<b></h2>");
+                $("button#submit-form").prop("disabled", true);
+                $("div#result-div").html("");
+                let player = $("#players").val().replaceAll(" ", "%20");
+                let action = $("#actions").val();
+                let block = $("#blocks").val().replaceAll(":", "%3A");
+                let dimension = $("#dimensions").val().replaceAll(":", "%3A");
+                let coordinates = $("#coords").val().replaceAll("(", "%28").replaceAll(")", "%29").replaceAll(" ", "%20").replaceAll(",", "%2C");
+                if(player == "All"){
+                    player = "0";
+                }
+                if(action == "All"){
+                    action = "0";
+                }
+                if(block == "All"){
+                    block = "0";
+                }
+                if(dimension == "All"){
+                    dimension = "0";
+                }
+                if(coordinates == ""){
+                    coordinates = "0";
+                }
+                
+                let url = "http://localhost:5000/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
+
+                fetch(url)
+                .then((response) => {
+                    var data = response.text();
+                    data.then((string) => {
+                        var logs=JSON.parse(string);
+                        if(logs.length >= 1){
+                            $("div#result-div").html(`<h3>${logs.length} Results Found</h3>`);
+                            let table = "<table class=\"table\"><thead><tr><th scope=\"col\">Timestamp</th><th scope=\"col\">Player</th><th scope=\"col\">Action</th><th scope=\"col\">Block</th><th scope=\"col\">Location</th><th scope=\"col\">Dimension</th></tr></thead><tbody>";
+                            for(let i = 0; i < logs.length; i++){
+                                table += `<tr><th scope="row">${logs[i].timestamp}</th><td>${logs[i].player}</td><td>${logs[i].action}</td><td>${logs[i].block}</td><td>${logs[i].location}</td><td>${logs[i].dimension}</td></tr>`;
+                            }
+                            table += "</tbody></table>"
+                            $("div#table-div").removeClass("table-div");
+                            $("div#table-div").html(table);
+                            $("button#submit-form").prop("disabled", false);
+                        }
+                        else{
+                            $("div#table-div").html("");
+                            $("div#result-div").html(`<h3>No Results Found</h3>`);
+                            $("button#submit-form").prop("disabled", false);
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+
+            });
+        });
+
+    
+    </script>
+  </body>
+</html>
