@@ -197,7 +197,7 @@
     <script>
         $(document).ready(function() {
             var players;
-            fetch("http://el-d.gl.at.ply.gg:52875/GetPlayers")
+            fetch("http://stormyland.us.to/GetPlayers")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -222,7 +222,7 @@
 
         $(document).ready(function() {
             var actions;
-            fetch("http://el-d.gl.at.ply.gg:52875/GetActions")
+            fetch("http://stormyland.us.to/GetActions")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -247,7 +247,7 @@
 
         $(document).ready(function() {
             var blocks;
-            fetch("http://el-d.gl.at.ply.gg:52875/GetBlocks")
+            fetch("http://stormyland.us.to/GetBlocks")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -272,7 +272,7 @@
 
         $(document).ready(function() {
             var dimensions;
-            fetch("http://el-d.gl.at.ply.gg:52875/GetDimensions")
+            fetch("http://stormyland.us.to/GetDimensions")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -324,7 +324,7 @@
                     coordinates = "0";
                 }
                 
-                let url = "http://el-d.gl.at.ply.gg:52875/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
+                let url = "http://stormyland.us.to/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
 
                 fetch(url)
                 .then((response) => {
