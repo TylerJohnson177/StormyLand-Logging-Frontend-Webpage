@@ -197,7 +197,7 @@
     <script>
         $(document).ready(function() {
             var players;
-            fetch("http://stormyland.us.to/GetPlayers")
+            fetch("https://stormylandsurvival.netlify.app/api/GetPlayers")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -222,7 +222,7 @@
 
         $(document).ready(function() {
             var actions;
-            fetch("http://stormyland.us.to/GetActions")
+            fetch("https://stormylandsurvival.netlify.app/api/GetActions")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -247,7 +247,7 @@
 
         $(document).ready(function() {
             var blocks;
-            fetch("http://stormyland.us.to/GetBlocks")
+            fetch("https://stormylandsurvival.netlify.app/api/GetBlocks")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -272,7 +272,7 @@
 
         $(document).ready(function() {
             var dimensions;
-            fetch("http://stormyland.us.to/GetDimensions")
+            fetch("https://stormylandsurvival.netlify.app/api/GetDimensions")
             .then((response) => {
                 var data = response.text();
                 data.then((string) => {
@@ -324,7 +324,7 @@
                     coordinates = "0";
                 }
                 
-                let url = "http://stormyland.us.to/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
+                let url = "https://stormylandsurvival.netlify.app/api/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
 
                 fetch(url)
                 .then((response) => {
