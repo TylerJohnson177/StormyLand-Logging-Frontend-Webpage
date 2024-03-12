@@ -1,1 +1,1 @@
-/api/* http://stormyland.us.to:25600//:splat 200
+/api/* http://stormyland.us.to:25600/:splat 200
