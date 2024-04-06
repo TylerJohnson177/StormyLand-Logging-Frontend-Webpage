@@ -249,8 +249,8 @@
                     var playerArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
                     select = document.getElementById('players');
                     var opt = document.createElement('option');
-                    opt.value = "All";
-                    opt.innerHTML = "All";
+                    opt.value = "All (" + playerArray.length + ")";
+                    opt.innerHTML = "All (" + playerArray.length + ")";
                     select.appendChild(opt);
                     for (var i = 0; i <= playerArray.length - 1; i++){
                         var opt = document.createElement('option');
@@ -274,8 +274,8 @@
                     var actionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
                     select = document.getElementById('actions');
                     var opt = document.createElement('option');
-                    opt.value = "All";
-                    opt.innerHTML = "All";
+                    opt.value = "All (" + actionsArray.length + ")";
+                    opt.innerHTML = "All (" + actionsArray.length + ")";
                     select.appendChild(opt);
                     for (var i = 0; i <= actionsArray.length - 1; i++){
                         var opt = document.createElement('option');
