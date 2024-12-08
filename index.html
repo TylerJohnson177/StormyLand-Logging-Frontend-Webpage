@@ -482,7 +482,7 @@
 
         $(document).ready(function () {
             var players;
-            fetch("http://192.168.0.177:5001/GetPlayers")
+            fetch("https://stormylandsurvival.netlify.app/api/GetPlayers")
                 .then((response) => {
                     var data = response.text();
                     data.then((string) => {
@@ -507,7 +507,7 @@
 
         $(document).ready(function () {
             var actions;
-            fetch("http://192.168.0.177:5001/GetActions")
+            fetch("https://stormylandsurvival.netlify.app/api/GetActions")
                 .then((response) => {
                     var data = response.text();
                     data.then((string) => {
@@ -532,7 +532,7 @@
 
         $(document).ready(function () {
             var blocks;
-            fetch("http://192.168.0.177:5001/GetBlocks")
+            fetch("https://stormylandsurvival.netlify.app/api/GetBlocks")
                 .then((response) => {
                     var data = response.text();
                     data.then((string) => {
@@ -557,7 +557,7 @@
 
         $(document).ready(function () {
             var dimensions;
-            fetch("http://192.168.0.177:5001/GetDimensions")
+            fetch("https://stormylandsurvival.netlify.app/api/GetDimensions")
                 .then((response) => {
                     var data = response.text();
                     data.then((string) => {
@@ -617,7 +617,7 @@
                 }
 
                 page = 1;
-                urlGlobal = "http://192.168.0.177:5001/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
+                urlGlobal = "https://stormylandsurvival.netlify.app/api/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
                 url = urlGlobal + "&Page=" + page;
                 fetch(url)
                     .then((response) => {
@@ -692,7 +692,7 @@
             $("div#admin-panel").prop("hidden", true);
             $("button#login_button").prop("disabled", true);
 
-            fetch('http://192.168.0.177:5001/Login?userName=' + username + '&apiKey=' + password, {
+            fetch('https://stormylandsurvival.netlify.app/api/Login?userName=' + username + '&apiKey=' + password, {
                 method: 'POST', // HTTP method
                 headers: {
                     'Accept': 'text/plain', // Requesting the response to be in plain text format
@@ -727,7 +727,7 @@
         }
 
         function getSubmissions(){
-            fetch('http://192.168.0.177:5001/GetSubmissions', {
+            fetch('https://stormylandsurvival.netlify.app/api/GetSubmissions', {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
@@ -749,7 +749,7 @@
         }
 
         function getWhitelistedPlayers(){
-            fetch('http://192.168.0.177:5001/GetWhitelistedPlayers', {
+            fetch('https://stormylandsurvival.netlify.app/api/GetWhitelistedPlayers', {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
@@ -771,7 +771,7 @@
         }
 
         function getBannedPlayers(){
-            fetch('http://192.168.0.177:5001/GetBannedPlayers', {
+            fetch('https://stormylandsurvival.netlify.app/api/GetBannedPlayers', {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
@@ -870,7 +870,7 @@
                 player = $("#whitelistName").val();
             }
             
-            fetch('http://192.168.0.177:5001/Whitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
+            fetch('https://stormylandsurvival.netlify.app/api/Whitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
                 method: 'POST', // HTTP method
                 headers: {
                     'Accept': 'text/plain', // Requesting the response to be in plain text format
@@ -906,7 +906,7 @@
         }
 
         function deny(player){                     
-            fetch('http://192.168.0.177:5001/DenySubmission?gamertag=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
+            fetch('https://stormylandsurvival.netlify.app/api/DenySubmission?gamertag=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
                 method: 'DELETE', // HTTP method
                 headers: {
                     'Accept': 'text/plain', // Requesting the response to be in plain text format
@@ -942,7 +942,7 @@
 
         function removeFromWhitelist(player){
                        
-            fetch('http://192.168.0.177:5001/RemoveFromWhitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
+            fetch('https://stormylandsurvival.netlify.app/api/RemoveFromWhitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
                 method: 'POST', // HTTP method
                 headers: {
                     'Accept': 'text/plain', // Requesting the response to be in plain text format
@@ -988,7 +988,7 @@
                 duration = $("#banDuration" + player).val();               
             }
             
-            fetch('http://192.168.0.177:5001/Ban?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&duration=' + duration + '&reason=' + reason + '&key=' + Token, {
+            fetch('https://stormylandsurvival.netlify.app/api/Ban?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&duration=' + duration + '&reason=' + reason + '&key=' + Token, {
                 method: 'POST', // HTTP method
                 headers: {
                     'Accept': 'text/plain', // Requesting the response to be in plain text format
@@ -1040,7 +1040,7 @@
         }
       
         function getData(months){           
-            fetch('http://192.168.0.177:5001/GetPlayerActivity?months=' + months, {
+            fetch('https://stormylandsurvival.netlify.app/api/GetPlayerActivity?months=' + months, {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
