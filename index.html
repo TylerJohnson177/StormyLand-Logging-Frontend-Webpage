@@ -1,10 +1,12 @@
-<html> 
-  <head>
+<html>
+
+<head>
     <title>StormyLand Survival Logging Panel</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
     <style>
-        body{
+        body {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -12,13 +14,15 @@
             background-image: url("images/background.jpg");
             background-size: 64px;
         }
-        #wrapper{
+
+        #wrapper {
             width: 90%;
             margin-bottom: 50px;
             background-color: lightgray;
             border-radius: 10px;
         }
-        #header{
+
+        #header {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,27 +33,37 @@
             background-repeat: no-repeat;
             height: 150px;
         }
-        .stormyland{
+
+        .stormyland {
             height: 28px;
             width: 100px;
             border-radius: 10px;
         }
-        .queryForm{
+
+        .queryForm {
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
         }
-        .form-select{
+
+        .stormNav {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+        .form-select {
             margin-bottom: 56px;
         }
-        h3{
+
+        h3 {
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
         }
-        .table-div{
+
+        .table-div {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -58,350 +72,1105 @@
             margin: 0;
 
         }
-        .select2-selection{
+
+        .select2-selection {
             display: flex;
             justify-content: left;
             align-items: left;
             text-align: left;
             width: 100% !important;
         }
-        .select2-results__option{
+
+        .select2-results__option {
             height: 25px;
             padding-top: 0px !important;
         }
-        .select2-results__option--selected{
-            background-color: #1967D2 !important;
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            /* Light grey */
+            border-top: 16px solid #3498db;
+            /* Blue */
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            animation: spin 2s linear infinite;
+            margin-bottom: 20px;
         }
-        .select2-container--bootstrap-5{
-            width: 100% !important;
+
+        #chart-loader{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            width: 100px;
+            height: 100px;
         }
-        @media only screen and (max-width: 800px){
-            #header{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 25px;
-            background-image: url("images/header.png");
-            background-size: 100%;
-            background-repeat: no-repeat;
-            height: 50px;
+
+        #login-loader{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -50px;
+            margin-left: -50px;
+            width: 100px;
+            height: 100px;
+        }
+           
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
             }
         }
-        @media only screen and (max-width: 890px){
-            table{
+
+        .select2-results__option--selected {
+            background-color: #1967D2 !important;
+        }
+
+        .select2-container--bootstrap-5 {
+            width: 100% !important;
+        }
+
+        @media only screen and (max-width: 800px) {
+            #header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding-top: 25px;
+                background-image: url("images/header.png");
+                background-size: 100%;
+                background-repeat: no-repeat;
+                height: 50px;
+            }
+        }
+
+        @media only screen and (max-width: 890px) {
+            table {
                 font-size: 0.8em;
             }
         }
-        @media only screen and (max-width: 750px){
-            table{
+
+        @media only screen and (max-width: 750px) {
+            table {
                 font-size: 0.6em;
             }
         }
-        @media only screen and (max-width: 550px){
-            table{
+
+        @media only screen and (max-width: 550px) {
+            table {
                 font-size: 0.4em;
             }
         }
-        @media only screen and (max-width: 576px){
-            #header{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding-top: 25px;
-            background-image: url("images/header.png");
-            background-size: 100%;
-            background-repeat: no-repeat;
-            height: 50px;
+
+        @media only screen and (max-width: 576px) {
+            #header {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                padding-top: 25px;
+                background-image: url("images/header.png");
+                background-size: 100%;
+                background-repeat: no-repeat;
+                height: 50px;
             }
-            .stormyland{
-            height: 28px;
-            width: 100px;
-            border-radius: 10px;
-            margin-top: 20px;
+
+            .stormyland {
+                height: 28px;
+                width: 100px;
+                border-radius: 10px;
+                margin-top: 20px;
             }
-            .start-date{
+
+            .start-date {
                 margin-top: 10px;
             }
-            .storm-form{
+
+            .storm-form {
                 margin-top: -50;
             }
-            .storm-input{
+
+            .storm-input {
                 margin-top: -20;
             }
-            .storm-form2{
+
+            .storm-form2 {
                 margin-top: 7;
             }
-            .storm-input2{
+
+            .storm-input2 {
                 margin-top: 0;
             }
-            .select2-selection{
+
+            .select2-selection {
                 display: flex;
                 justify-content: left;
                 align-items: left;
                 text-align: left;
                 width: 100% !important;
             }
-            .select2-results__option{
+
+            .select2-results__option {
                 height: 20px;
                 padding-top: 0px !important;
                 padding-bottom: 2px !important;
             }
-            .select2-container--bootstrap-5{
+
+            .select2-container--bootstrap-5 {
                 width: 100% !important;
                 margin-top: -20px;
                 margin-bottom: 55px;
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href= "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-  </head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+</head>
 
-  <body>
+<body>
     <div id="wrapper">
         <div id="header">
         </div>
-        <h3>Logging Panel</h3>
-        <hr>
-        <div class="queryForm">
-            <form id="search-form">
-                <div class="container">
-                    <div class="row">
-                      <div class="col-sm">
-                        <label for="players">Players:</label><br>
-                        <select id="players" name="players" class="form-control players-select form-select">
-                        <select id="playersx" name="playersx" class="form-control players-select form-select">
-                      </div>
-                      <div class="col-sm">
-                        <label for="actions" class="storm-form">Actions:</label><br>
-                        <select id="actions"  name="actions" class="form-control actions-select form-select storm-input">
-                        <select id="actionsx" name="actionsx" class="form-control actions-select form-select storm-input"></select>
-                      </div>
-                      <div class="col-sm">
-                        <label for="blocks" class="storm-form">Blocks:</label><br>
-                        <select id="blocks"  name="blocks" class="form-control blocks-select form-select storm-input">
-                        <select id="blocksx" name="blocksx" class="form-control actions-select form-select storm-input"></select>
-                      </div>
-                    </div>
+        <br>
+        <ul class="nav nav-pills nav-fill stormNav">
+            <li class="nav-item active">
+                <a data-toggle="tab" class="nav-link active" aria-current="page" href="#logging">Logging</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#activity" onclick="getData(1)">Activity</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#admin">Admin</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div id="logging" class="tab-pane active">
+                <h3>Logging Panel</h3>
+                <hr>
+                <div class="queryForm">
+                    <form id="search-form">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="players">Players:</label><br>
+                                    <select id="players" name="players" class="form-control players-select form-select">
+                                        <select id="playersx" name="playersx"
+                                            class="form-control players-select form-select">
+                                </div>
+                                <div class="col-sm">
+                                    <label for="actions" class="storm-form">Actions:</label><br>
+                                    <select id="actions" name="actions"
+                                        class="form-control actions-select form-select storm-input">
+                                        <select id="actionsx" name="actionsx"
+                                            class="form-control actions-select form-select storm-input"></select>
+                                </div>
+                                <div class="col-sm">
+                                    <label for="blocks" class="storm-form">Blocks:</label><br>
+                                    <select id="blocks" name="blocks"
+                                        class="form-control blocks-select form-select storm-input">
+                                        <select id="blocksx" name="blocksx"
+                                            class="form-control actions-select form-select storm-input"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm">
+                                    <label for="dimensions" class="storm-form">Dimensions:</label><br>
+                                    <select id="dimensions" name="dimensions"
+                                        class="form-control dimensions-select form-select storm-input">
+                                </div>
+                                <div class="col-sm">
+                                    <select id="dimensionsx" class="storm-form2" name="dimensionsx"
+                                        class="form-control dimensions-select form-select storm-input2">
+                                </div>
+                                <div class="col-sm">
+                                    <label for="coords" class="storm-form">Coordinates</label><br>
+                                    <input type="text" id="coords" name="coords" class="form-control storm-input"
+                                        placeholder="ex: (20, 20, -20)">
+                                </div>
+                                <div class="col-sm">
+                                    <label class="start-date storm-form2">Start Date: </label>
+                                    <div id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
+                                        <input class="form-control storm-input2" type="text" readonly />
+                                        <span class="input-group-addon">
+                                            <i class="glyphicon glyphicon-calendar"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" value="Submit" class="btn-primary stormyland"
+                            id="submit-form">Search</button>
+                    </form>
                 </div>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm">
-                            <label for="dimensions" class="storm-form">Dimensions:</label><br>
-                            <select id="dimensions" name="dimensions" class="form-control dimensions-select form-select storm-input">
+                <hr>
+                <div id="result-div" class="table-div"></div>
+                <div id="table-div"></div>
+                <button type="submit" value="Submit" class="btn-secondary" hidden="hidden" id="load_more"
+                    style="margin: auto; display: block; margin-bottom: 5px;" onclick="appendResults()">Load More
+                    Results</button>
+            </div>
+            <div id="activity" class="tab-pane">
+                <h3>Activity Panel</h3>
+                <div class="loader" id="chart-loader"></div>
+                <canvas id="activityChart" style="width:100%; max-width:1000px; margin: auto; display: block;"></canvas>
+            </div>
+            <div id="admin" class="tab-pane">
+                <h3>Admin Panel</h3>
+                <div id="login-panel">
+                    <div class="container">
+                        <div class="row">
+                          <div class="col-sm">
+                            <div class="container d-flex justify-content-center" style="margin-bottom: 25px; margin-top: 25px;">
+                                <div class="card" style="width: 100%;">
+                                  <div class="card-body">
+                                    <h4 class="card-title text-center">StormyLand Admin Login</h4>
+                                    <form>                                    
+                                      <div class="form-group">
+                                        <label for="username">Username</label>
+                                        <input type="username" class="form-control" id="username" placeholder="Enter your username" required>
+                                      </div>                                     
+                                      <div class="form-group">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                                      </div>                                     
+                                      <button type="button" class="btn btn-primary btn-block" onclick="login()" id="login_button">Login</button>
+                                      <p id="invalid_login" style="color: red;" hidden="hidden">Incorrect username or password</p>
+                                    </form>
+                                  </div>
+                                </div>
+                              </div>
+                          </div>
+                          <div class="col-sm">
+                            <br>
+                            <h5>All admins of StormyLand Survival are entitled to an admin account. This is where admins can whitelist, ban, and view past bans and whitelists on StormyLand Survival.</h5>
+                          </div>                        
                         </div>
-                        <div class="col-sm">
-                            <select id="dimensionsx" class="storm-form2" name="dimensionsx" class="form-control dimensions-select form-select storm-input2">
-                        </div>
-                        <div class="col-sm">
-                            <label for="coords" class="storm-form" >Coordinates</label><br>
-                            <input type="text" id="coords" name="coords" class="form-control storm-input" placeholder="ex: (20, 20, -20)">
-                        </div>
-                        <div class="col-sm">
-                            <label class="start-date storm-form2">Start Date: </label> 
-                                <div id="datepicker" 
-                                    class="input-group date" 
-                                    data-date-format="mm-dd-yyyy"> 
-                                    <input class="form-control storm-input2" type="text" readonly /> 
-                                    <span class="input-group-addon"> 
-                                        <i class="glyphicon glyphicon-calendar"></i> 
-                                    </span> 
-                                </div> 
-                        </div>
-                    </div>
+                      </div>
                 </div>
-                <button type="submit" value="Submit" class="btn-primary stormyland" id="submit-form">Search</button>
-            </form>
+                <div id="admin-panel" hidden="hidden">
+                    <div class="container">
+                        <div class="d-flex justify-content-center" style="margin-bottom: 25px; margin-top: 25px; width: 100%;">
+                            <div class="card" style="width: 90%;">
+                              <div class="card-body">
+                                <h4 class="card-title text-center">New Applications</h4>
+                                <table class="table">
+                                    <thead>
+                                        <th>Player</th>
+                                        <th>Submitted On</th>                                       
+                                        <th>Start Year</th>
+                                        <th>Skill Level</th>
+                                        <th></th>
+                                    </thead>
+                                    <tbody id="submission_table">
+
+                                    </tbody>
+                                </table>                                  
+                              </div>
+                            </div>
+                        </div>                                               
+                            <div class="d-flex justify-content-center" style="margin-bottom: 25px; margin-top: 25px; width: 100%;">
+                                <div class="card" style="width: 90%;">
+                                  <div class="card-body">
+                                    <h4 class="card-title text-center">Whitelisted Players</h4>
+                                    <p class="text-center">NOTE: Only players that have joined the server or have been whitelisted within the last 30 days will appear here.</p>
+                                    <table class="table">
+                                        <thead>
+                                            <th>Player</th>
+                                            <th>Added On</th>                                           
+                                            <th>Added By</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody id="whitelist_table">
+
+                                        </tbody>
+                                    </table>
+                                    <form>
+                                          <div class="form-group">
+                                            <label for="whitelistName">Add player to whitelist</label>
+                                            <input type="username" class="form-control" id="whitelistName" placeholder="Enter Gamertag" required>
+                                          </div>
+                                          <button type="button" class="btn btn-primary btn-block" onclick="whitelist()" id="whitelist_button">Add Player</button>
+                                    </form>                                  
+                                  </div>
+                                </div>
+                            </div>                         
+                            <div class="d-flex justify-content-center" style="margin-bottom: 25px; margin-top: 25px; width: 100%">
+                                <div class="card" style="width: 90%;">
+                                  <div class="card-body">
+                                    <h4 class="card-title text-center">Banned Players</h4>
+                                    <table class="table">
+                                        <thead>
+                                            <th>Player</th>                                           
+                                            <th>Banned On</th>
+                                            <th>Banned By</th>
+                                            <th>Reason</th>
+                                            <th>Duration</th>
+                                            <th></th>
+                                        </thead>
+                                        <tbody id="ban_table">
+                                            
+                                        </tbody>
+                                    </table>
+                                    <form>
+                                        <div class="form-group">
+                                          <label for="banName">Ban player</label>
+                                          <input type="username" class="form-control" id="banName" placeholder="Enter Gamertag" required>
+                                        </div>
+                                        <div class="form-group">                                          
+                                            <input type="username" class="form-control" id="banReason" placeholder="Enter Reason" required>
+                                          </div>
+                                          <div class="form-group">                                           
+                                            <input type="number" class="form-control" id="banDuration" placeholder="Enter Duration in Days" required>
+                                          </div>
+                                        <button type="button" class="btn btn-danger btn-block" onclick="ban()" id="ban_button">Ban Player</button>
+                                  </form>                                  
+                                  </div>
+                                </div>
+                              </div>                                               
+                        </div>
+                      </div>
+                </div>
+                <div class="loader" id="login-loader" hidden="hidden"></div>
+            </div>
         </div>
-        <hr>
-        <div id="result-div" class="table-div"></div>
-        <div id="table-div"></div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script> 
-        $(function () { 
-            $("#datepicker").datepicker({  
-                autoclose: true,  
-                todayHighlight: true, 
-            }).datepicker('update', new Date()); 
+    <div id="whitelist_modals"></div>
+    <div id="ban_modals"></div>  
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({
+                autoclose: true,
+                todayHighlight: true,
+            }).datepicker('update', new Date());
         }); 
-    </script> 
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"> </script>
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"> </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
     <script>
-         $(document).ready(function() {
-            $( '#blocks' ).select2( {
+        let page = 1;
+        let urlGlobal = "";
+        let Token = "";
+        $(document).ready(function () {
+            $('#blocks').select2({
                 theme: 'bootstrap-5'
             });
-         });
+        });
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             var players;
-            fetch("https://stormylandsurvival.netlify.app/api/GetPlayers")
-            .then((response) => {
-                var data = response.text();
-                data.then((string) => {
-                    var playerArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
-                    select = document.getElementById('players');
-                    var opt = document.createElement('option');
-                    opt.value = "All";
-                    opt.innerHTML = "All";
-                    select.appendChild(opt);
-                    for (var i = 0; i <= playerArray.length - 1; i++){
-                        var opt = document.createElement('option');
-                        opt.value = playerArray[i];
-                        opt.innerHTML = playerArray[i];
-                        select.appendChild(opt);
-                    }
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        });
-
-        $(document).ready(function() {
-            var actions;
-            fetch("https://stormylandsurvival.netlify.app/api/GetActions")
-            .then((response) => {
-                var data = response.text();
-                data.then((string) => {
-                    var actionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
-                    select = document.getElementById('actions');
-                    var opt = document.createElement('option');
-                    opt.value = "All";
-                    opt.innerHTML = "All";
-                    select.appendChild(opt);
-                    for (var i = 0; i <= actionsArray.length - 1; i++){
-                        var opt = document.createElement('option');
-                        opt.value = actionsArray[i];
-                        opt.innerHTML = actionsArray[i];
-                        select.appendChild(opt);
-                    }
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        });
-
-        $(document).ready(function() {
-            var blocks;
-            fetch("https://stormylandsurvival.netlify.app/api/GetBlocks")
-            .then((response) => {
-                var data = response.text();
-                data.then((string) => {
-                    var blocksArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
-                    select = document.getElementById('blocks');
-                    var opt = document.createElement('option');
-                    opt.value = "All";
-                    opt.innerHTML = "All";
-                    select.appendChild(opt);
-                    for (var i = 0; i <= blocksArray.length - 1; i++){
-                        var opt = document.createElement('option');
-                        opt.value = blocksArray[i];
-                        opt.innerHTML = blocksArray[i];
-                        select.appendChild(opt);
-                    }
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        });
-
-        $(document).ready(function() {
-            var dimensions;
-            fetch("https://stormylandsurvival.netlify.app/api/GetDimensions")
-            .then((response) => {
-                var data = response.text();
-                data.then((string) => {
-                    var dimensionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
-                    select = document.getElementById('dimensions');
-                    var opt = document.createElement('option');
-                    opt.value = "All";
-                    opt.innerHTML = "All";
-                    select.appendChild(opt);
-                    for (var i = 0; i <= dimensionsArray.length - 1; i++){
-                        var opt = document.createElement('option');
-                        opt.value = dimensionsArray[i];
-                        opt.innerHTML = dimensionsArray[i];
-                        select.appendChild(opt);
-                    }
-                })
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-        });
-
-        $(document).ready(function ()
-        {       
-            $('#search-form').submit(function(e) {
-                e.preventDefault();
-                $("div#table-div").addClass("table-div");
-                $("div#table-div").html("<h2><b>Loading...<b></h2>");
-                $("button#submit-form").prop("disabled", true);
-                $("div#result-div").html("");
-                let player = $("#players").val().replaceAll(" ", "%20");
-                let action = $("#actions").val();
-                let block = $("#blocks").val().replaceAll(":", "%3A");
-                let dimension = $("#dimensions").val().replaceAll(":", "%3A");
-                let coordinates = $("#coords").val().replaceAll("(", "%28").replaceAll(")", "%29").replaceAll(" ", "%20").replaceAll(",", "%2C");
-                if(player == "All"){
-                    player = "0";
-                }
-                if(action == "All"){
-                    action = "0";
-                }
-                if(block == "All"){
-                    block = "0";
-                }
-                if(dimension == "All"){
-                    dimension = "0";
-                }
-                if(coordinates == ""){
-                    coordinates = "0";
-                }
-                
-                let url = "https://stormylandsurvival.netlify.app/api/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
-
-                fetch(url)
+            fetch("http://192.168.0.177:5001/GetPlayers")
                 .then((response) => {
                     var data = response.text();
                     data.then((string) => {
-                        var logs=JSON.parse(string);
-                        if(logs.length >= 1){
-                            $("div#result-div").html(`<h3>${logs.length} Results Found</h3>`);
-                            let table = "<table class=\"table\"><thead><tr><th scope=\"col\">Timestamp</th><th scope=\"col\">Player</th><th scope=\"col\">Action</th><th scope=\"col\">Block</th><th scope=\"col\">Location</th><th scope=\"col\">Dimension</th></tr></thead><tbody>";
-                            for(let i = 0; i < logs.length; i++){
-                                table += `<tr><th scope="row">${logs[i].timestamp}</th><td>${logs[i].player}</td><td>${logs[i].action}</td><td>${logs[i].block}</td><td>${logs[i].location}</td><td>${logs[i].dimension}</td></tr>`;
-                            }
-                            table += "</tbody></table>"
-                            $("div#table-div").removeClass("table-div");
-                            $("div#table-div").html(table);
-                            $("button#submit-form").prop("disabled", false);
-                        }
-                        else{
-                            $("div#table-div").html("");
-                            $("div#result-div").html(`<h3>No Results Found</h3>`);
-                            $("button#submit-form").prop("disabled", false);
+                        var playerArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                        select = document.getElementById('players');
+                        var opt = document.createElement('option');
+                        opt.value = "All";
+                        opt.innerHTML = "All";
+                        select.appendChild(opt);
+                        for (var i = 0; i <= playerArray.length - 1; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = playerArray[i];
+                            opt.innerHTML = playerArray[i];
+                            select.appendChild(opt);
                         }
                     })
                 })
                 .catch((error) => {
                     console.error(error);
                 });
-
-            });
         });
 
-    
+        $(document).ready(function () {
+            var actions;
+            fetch("http://192.168.0.177:5001/GetActions")
+                .then((response) => {
+                    var data = response.text();
+                    data.then((string) => {
+                        var actionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                        select = document.getElementById('actions');
+                        var opt = document.createElement('option');
+                        opt.value = "All";
+                        opt.innerHTML = "All";
+                        select.appendChild(opt);
+                        for (var i = 0; i <= actionsArray.length - 1; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = actionsArray[i];
+                            opt.innerHTML = actionsArray[i];
+                            select.appendChild(opt);
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
+
+        $(document).ready(function () {
+            var blocks;
+            fetch("http://192.168.0.177:5001/GetBlocks")
+                .then((response) => {
+                    var data = response.text();
+                    data.then((string) => {
+                        var blocksArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                        select = document.getElementById('blocks');
+                        var opt = document.createElement('option');
+                        opt.value = "All";
+                        opt.innerHTML = "All";
+                        select.appendChild(opt);
+                        for (var i = 0; i <= blocksArray.length - 1; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = blocksArray[i];
+                            opt.innerHTML = blocksArray[i];
+                            select.appendChild(opt);
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
+
+        $(document).ready(function () {
+            var dimensions;
+            fetch("http://192.168.0.177:5001/GetDimensions")
+                .then((response) => {
+                    var data = response.text();
+                    data.then((string) => {
+                        var dimensionsArray = string.replaceAll("[", "").replaceAll("]", "").replaceAll("\"", "").replaceAll("\"", "").split(",");
+                        select = document.getElementById('dimensions');
+                        var opt = document.createElement('option');
+                        opt.value = "All";
+                        opt.innerHTML = "All";
+                        select.appendChild(opt);
+                        for (var i = 0; i <= dimensionsArray.length - 1; i++) {
+                            var opt = document.createElement('option');
+                            opt.value = dimensionsArray[i];
+                            opt.innerHTML = dimensionsArray[i];
+                            select.appendChild(opt);
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        });
+        $(document).ready(function () {           
+        });
+
+        $(document).ready(function () {
+            searchLogs();
+        });
+
+        function searchLogs() {
+            $('#search-form').submit(function (e) {
+                e.preventDefault();
+                $("div#table-div").addClass("table-div");
+                $("div#table-div").html("<div class=\"loader\"></div>");
+                $("button#submit-form").prop("disabled", true);
+                $("button#load_more").prop("disabled", true);
+                $("button#load_more").prop("hidden", true);
+                $("div#result-div").html("");
+                let player = $("#players").val().replaceAll(" ", "%20");
+                let action = $("#actions").val();
+                let block = $("#blocks").val().replaceAll(":", "%3A");
+                let dimension = $("#dimensions").val().replaceAll(":", "%3A");
+                let coordinates = $("#coords").val().replaceAll("(", "%28").replaceAll(")", "%29").replaceAll(" ", "%20").replaceAll(",", "%2C");
+                if (player == "All") {
+                    player = "0";
+                }
+                if (action == "All") {
+                    action = "0";
+                }
+                if (block == "All") {
+                    block = "0";
+                }
+                if (dimension == "All") {
+                    dimension = "0";
+                }
+                if (coordinates == "") {
+                    coordinates = "0";
+                }
+
+                page = 1;
+                urlGlobal = "http://192.168.0.177:5001/Search?Player=" + player + "&Block=" + block + "&Action=" + action + "&Location=" + coordinates + "&Dimension=" + dimension;
+                url = urlGlobal + "&Page=" + page;
+                fetch(url)
+                    .then((response) => {
+                        var data = response.text();
+                        data.then((string) => {
+                            var logs = JSON.parse(string);
+                            if (logs.length >= 1) {
+                                $("div#result-div").html(`<h3>${logs.length} Results Found</h3>`);
+                                let table = "<table class=\"table\"><thead><tr><th scope=\"col\">Timestamp</th><th scope=\"col\">Player</th><th scope=\"col\">Action</th><th scope=\"col\">Block</th><th scope=\"col\">Location</th><th scope=\"col\">Dimension</th></tr></thead><tbody>";
+                                for (let i = 0; i < logs.length; i++) {
+                                    table += `<tr><th scope="row">${logs[i].timestamp}</th><td>${logs[i].player}</td><td>${logs[i].action}</td><td>${logs[i].block}</td><td>${logs[i].location}</td><td>${logs[i].dimension}</td></tr>`;
+                                }
+                                table += "</tbody></table>"
+                                if (logs.length == 100) {
+                                    $("button#load_more").prop("hidden", false);
+                                }
+                                $("div#table-div").removeClass("table-div");
+                                $("div#table-div").html(table);
+                                setTimeout(enableButton, 10000);
+                            }
+                            else {
+                                $("div#table-div").html("");
+                                $("div#result-div").html(`<h3>No Results Found</h3>`);
+                                setTimeout(enableButton, 10000);
+                            }
+                        })
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                    });
+            });
+        }
+        function enableButton() {
+            $("button#submit-form").prop("disabled", false);
+            $("button#load_more").prop("disabled", false);
+        }
+        function appendResults() {
+            page++;
+            $("button#submit-form").prop("disabled", true);
+            $("button#load_more").prop("disabled", true);
+            let url = urlGlobal + "&Page=" + page;
+            fetch(url)
+                .then((response) => {
+                    var data = response.text();
+                    data.then((string) => {
+                        var logs = JSON.parse(string);
+                        if (logs.length >= 1) {
+                            let table = "<table class=\"table\"><thead><tr><th scope=\"col\">Timestamp</th><th scope=\"col\">Player</th><th scope=\"col\">Action</th><th scope=\"col\">Block</th><th scope=\"col\">Location</th><th scope=\"col\">Dimension</th></tr></thead><tbody>";
+                            for (let i = 0; i < logs.length; i++) {
+                                table += `<tr><th scope="row">${logs[i].timestamp}</th><td>${logs[i].player}</td><td>${logs[i].action}</td><td>${logs[i].block}</td><td>${logs[i].location}</td><td>${logs[i].dimension}</td></tr>`;
+                            }
+                            table += "</tbody></table>"
+                            if (logs.length != 100) {
+                                $("button#load_more").prop("hidden", true);
+                                $("button#load_more").prop("disabled", true);
+                            }
+                            $("div#table-div").append(table);
+                            setTimeout(enableButton, 10000);
+                        }
+                    })
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        }
+
+        function login(){
+            let username = $("#username").val();
+            let password = $("#password").val();
+            $("div#login-loader").prop("hidden", false);
+            $("div#login-panel").prop("hidden", true);
+            $("div#admin-panel").prop("hidden", true);
+            $("button#login_button").prop("disabled", true);
+
+            fetch('http://192.168.0.177:5001/Login?userName=' + username + '&apiKey=' + password, {
+                method: 'POST', // HTTP method
+                headers: {
+                    'Accept': 'text/plain', // Requesting the response to be in plain text format
+                    'Content-Type': 'application/x-www-form-urlencoded' // Content type for POST data (if any)
+                },
+                body: '' // Empty body, as in the curl command
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                return response.text(); // Processing the response as plain text
+                })
+                .then(data => {
+                    console.log(data); // Handling the response data
+                    if(data != "Invalid Login"){
+                        loadAdminPanel(data);
+                        $("p#invalid_login").prop("hidden", true);
+                        getWhitelistedPlayers();
+                        getBannedPlayers();
+                        getSubmissions();                      
+                    }
+                    else{
+                        loadLoginPanel();
+                        $("p#invalid_login").prop("hidden", false);                       
+                    }
+                    setTimeout(enableLoginButton, 10000);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+
+        function getSubmissions(){
+            fetch('http://192.168.0.177:5001/GetSubmissions', {
+            method: 'GET', // HTTP method
+            headers: {
+                'Accept': 'text/plain' // Headers specifying that the response should be in plain text
+                }
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+                return(response.text()); // Process the response as plain text
+            })
+            .then(data => {
+                let dataJSON = JSON.parse(data);
+                constructSubmissionData(dataJSON);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function getWhitelistedPlayers(){
+            fetch('http://192.168.0.177:5001/GetWhitelistedPlayers', {
+            method: 'GET', // HTTP method
+            headers: {
+                'Accept': 'text/plain' // Headers specifying that the response should be in plain text
+                }
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+                return(response.text()); // Process the response as plain text
+            })
+            .then(data => {
+                let dataJSON = JSON.parse(data);
+                constructWhitelistData(dataJSON);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function getBannedPlayers(){
+            fetch('http://192.168.0.177:5001/GetBannedPlayers', {
+            method: 'GET', // HTTP method
+            headers: {
+                'Accept': 'text/plain' // Headers specifying that the response should be in plain text
+                }
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+                return(response.text()); // Process the response as plain text
+            })
+            .then(data => {
+                let dataJSON = JSON.parse(data);
+                constructBanData(dataJSON);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function constructSubmissionData(data){
+            $("tbody#submission_table").html("")
+            $("div#submission_modals").html("")                 
+            for(let i = 0; i < data.length; i++){
+                let strengths = "";
+                for(let j = 0; j < data[i].strengths.length; j++){
+                    strengths += data[i].strengths[j] + ", ";
+                }
+                $("tbody#submission_table").append(`<tr id="table_${data[i].gamerTag}"><th scope="row">${data[i].gamerTag}</th><td>${formatDate(data[i].timestamp)}</td><td>${data[i].year}</td><td>${data[i].skillLevel}</td><td><button type="button" class="btn btn-primary btn-block" id="submission_button" onclick="whitelist('${data[i].gamerTag.replaceAll(" ", "-")}')">Except</button></td><td><button type="button" class="btn btn-danger btn-block" id="submission_button" onclick="deny('${data[i].gamerTag.replaceAll(" ", "-")}')">Deny</button></td></tr>`);               
+            }
+        }
+
+        function constructWhitelistData(data){
+            $("tbody#whitelist_table").html("")
+            $("div#whitelist_modals").html("")
+            for(let i = 0; i < data.length; i++){
+                $("tbody#whitelist_table").append(`<tr><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeAdded)}</td><td>${data[i].whitelistedBy}</td><td><button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#ban_whitelist_button${data[i].whitelistedPlayerId}" id="whitelist_ban_button">Ban</button></td></tr>`);
+                $("div#whitelist_modals").append(`<div class="modal fade" id="ban_whitelist_button${data[i].whitelistedPlayerId}" tabindex="-1" role="dialog" aria-labelledby="ban_whitelist_button${data[i].whitelistedPlayerId}label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="ban_whitelist_button${data[i].whitelistedPlayerId}label">Ban ${data[i].playerName}</h5>
+                        <button type="button" class="Back" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">
+                        <form>                      
+                        <div class="form-group">                                          
+                        <input type="username" class="form-control" id="banReason${data[i].playerName.replaceAll(" ", "-")}" placeholder="Enter Reason" required>
+                        </div>
+                        <div class="form-group">                                           
+                        <input type="number" class="form-control" id="banDuration${data[i].playerName.replaceAll(" ", "-")}" placeholder="Enter Duration in Days" required>
+                        </div>                      
+                        </form>                          
+                        </div>
+                        <div class="modal-footer">                       
+                        <button type="button" class="btn btn-danger btn-block" onclick="ban('${data[i].playerName.replaceAll(" ", "-")}')" id="ban_button${data[i].playerName.replaceAll(" ", "-")}" data-dismiss="modal">Ban Player</button>
+                        <button type="button" class="btn btn-secondary btn-block" onclick="removeFromWhitelist('${data[i].playerName.replaceAll(" ", "-")}')" id="remove_button${data[i].playerName.replaceAll(" ", "-")}" data-dismiss="modal">Remove from Whitelist</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>`);
+            }
+        }
+
+        function constructBanData(data){
+            $("tbody#ban_table").html("")
+            $("div#ban_modals").html("")
+            for(let i = 0; i < data.length; i++){
+                $("tbody#ban_table").append(`<tr><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeBanned)}</td><td>${data[i].bannedBy}</td><td>${data[i].reason}</td><td>${data[i].duration} Days</td><td><button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#whitelist_ban_button${data[i].bannedPlayerId}" id="whitelist_ban_button">Pardon</button></td></tr>`);
+                $("div#ban_modals").append(`<div class="modal fade" id="whitelist_ban_button${data[i].bannedPlayerId}" tabindex="-1" role="dialog" aria-labelledby="whitelist_ban_button${data[i].whitelistedPlayerId}label" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="whitelist_ban_button${data[i].bannedPlayerId}label">Pardon ${data[i].playerName.replaceAll(" ", "-")}</h5>
+                        <button type="button" class="Back" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                        <div class="modal-body">                                                 
+                        </div>
+                        <div class="modal-footer">                       
+                        <button type="button" class="btn btn-secondary btn-block" onclick="whitelist('${data[i].playerName.replaceAll(" ", "-")}')" id="whitelist_button${data[i].playerName.replaceAll(" ", "-")}" data-dismiss="modal">Pardon Player</button>
+                        </div>
+                        </div>
+                        </div>
+                        </div>`);
+            }
+        }
+
+        
+
+        function whitelist(player){
+            if(!player){
+                player = $("#whitelistName").val();
+            }
+            
+            fetch('http://192.168.0.177:5001/Whitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
+                method: 'POST', // HTTP method
+                headers: {
+                    'Accept': 'text/plain', // Requesting the response to be in plain text format
+                    'Content-Type': 'application/x-www-form-urlencoded' // Content type for POST data (if any)
+                },
+                body: '' // Empty body, as in the curl command
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+
+                    }
+                return response.text(); // Processing the response as plain text
+                })
+                .then(data => {
+                    console.log(data); // Handling the response data
+                    if(data != "Session Expired" || data != "Invalid Key"){                                             
+                        getWhitelistedPlayers();
+                        getBannedPlayers(); 
+                        getSubmissions();             
+                    }                 
+                    else{
+                        loadLoginPanel();
+                        $("p#invalid_login").html("Session Expired")
+                        $("p#invalid_login").prop("hidden", false);                       
+                    }
+                    setTimeout(enableLoginButton, 10000);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+                    
+        }
+
+        function deny(player){                     
+            fetch('http://192.168.0.177:5001/DenySubmission?gamertag=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
+                method: 'DELETE', // HTTP method
+                headers: {
+                    'Accept': 'text/plain', // Requesting the response to be in plain text format
+                    'Content-Type': 'application/x-www-form-urlencoded' // Content type for POST data (if any)
+                },
+                body: '' // Empty body, as in the curl command
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+           
+                    }
+                return response.text(); // Processing the response as plain text
+                })
+                .then(data => {
+                    console.log(data); // Handling the response data
+                    if(data != "Session Expired" || data != "Invalid Key"){
+                        console.log("Test");
+                        getSubmissions();                                                                                                                                                                                                                 
+                    }                 
+                    else{
+                        loadLoginPanel();
+                        $("p#invalid_login").html("Session Expired")
+                        $("p#invalid_login").prop("hidden", false);                       
+                    }
+                    setTimeout(enableLoginButton, 10000);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+                               
+        }
+
+        function removeFromWhitelist(player){
+                       
+            fetch('http://192.168.0.177:5001/RemoveFromWhitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
+                method: 'POST', // HTTP method
+                headers: {
+                    'Accept': 'text/plain', // Requesting the response to be in plain text format
+                    'Content-Type': 'application/x-www-form-urlencoded' // Content type for POST data (if any)
+                },
+                body: '' // Empty body, as in the curl command
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+
+                    }
+                return response.text(); // Processing the response as plain text
+                })
+                .then(data => {
+                    console.log(data); // Handling the response data
+                    if(data != "Session Expired" || data != "Invalid Key"){                                             
+                        getWhitelistedPlayers();                                           
+                    }                 
+                    else{
+                        loadLoginPanel();
+                        $("p#invalid_login").html("Session Expired")
+                        $("p#invalid_login").prop("hidden", false);                       
+                    }
+                    setTimeout(enableLoginButton, 10000);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+                    
+        }
+      
+        function ban(player){
+            let reason;
+            let duration;
+            if(!player){
+                player = $("#banName").val();
+                reason = $("#banReason").val();
+                duration = $("#banDuration").val();
+            }
+            else{
+                reason = $("#banReason" + player).val();
+                duration = $("#banDuration" + player).val();               
+            }
+            
+            fetch('http://192.168.0.177:5001/Ban?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&duration=' + duration + '&reason=' + reason + '&key=' + Token, {
+                method: 'POST', // HTTP method
+                headers: {
+                    'Accept': 'text/plain', // Requesting the response to be in plain text format
+                    'Content-Type': 'application/x-www-form-urlencoded' // Content type for POST data (if any)
+                },
+                body: '' // Empty body, as in the curl command
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                return response.text(); // Processing the response as plain text
+                })
+                .then(data => {
+                    console.log(data); // Handling the response data
+                    if(data != "Session Expired" || data != "Invalid Key"){                                             
+                        getWhitelistedPlayers();
+                        getBannedPlayers();                      
+                    }                 
+                    else{
+                        loadLoginPanel();
+                        $("p#invalid_login").html("Session Expired")
+                        $("p#invalid_login").prop("hidden", false);                       
+                    }
+                    setTimeout(enableLoginButton, 10000);
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+                    
+        }
+
+        function loadAdminPanel(data){
+            Token = data;
+            $("div#login-panel").prop("hidden", true);
+            $("div#admin-panel").prop("hidden", false);
+            $("div#login-loader").prop("hidden", true);          
+        }
+
+        function loadLoginPanel(){
+            Token = "";
+            $("div#login-panel").prop("hidden", false);
+            $("div#admin-panel").prop("hidden", true);
+            $("div#login-loader").prop("hidden", true);                            
+        }
+
+        function enableLoginButton(){
+            $("button#login_button").prop("disabled", false);
+        }
+      
+        function getData(months){           
+            fetch('http://192.168.0.177:5001/GetPlayerActivity?months=' + months, {
+            method: 'GET', // HTTP method
+            headers: {
+                'Accept': 'text/plain' // Headers specifying that the response should be in plain text
+                }
+            })
+            .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+                return(response.text()); // Process the response as plain text
+            })
+            .then(data => {
+                let dataJSON = JSON.parse(data);
+                constructData(dataJSON);
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function constructData(data){          
+            let players = [];
+            let restarts = [];
+            for(let i = 0; i < data.length; i++){
+                
+                var point = {
+                    y: data[i].totalPlayersOnline,
+                    x: new Date(data[i].timestamp).getTime(),
+                    playerName: data[i].playerName,
+                    connectOrDisconect: data[i].connectOrDisconect,                   
+                }
+                players.push(point);
+                
+                if(data[i].playerName == "Restart"){
+                    var point = {
+                        y: data[i].totalPlayersOnline,
+                        x: new Date(data[i].timestamp).getTime(),                                          
+                    }
+                    restarts.push(point);
+                }               
+            }
+            console.log(players);
+            console.log(restarts);           
+            createChart(players, restarts)
+            $("div#chart-loader").prop("hidden", true)        
+        }
+   
+        function createChart(players, restarts) {
+            var mixedChart = new Chart(activityChart, {
+                type: 'scatter',
+                data: {
+                    datasets: [{
+                        label: 'Restarts',
+                        data: restarts,                       
+                        backgroundColor: '#FFEA00',
+                        pointRadius: 5,
+                    },                   
+                    {
+                        label: 'Players Online',
+                        data: players,
+                        backgroundColor: '#98FB98',
+                        type: 'line',                                             
+                    }],
+                },                   
+                options: {
+                    responsive: true,
+                    animation: {
+                        duration: 0
+                    },
+                    scales: {
+                        yAxes: [
+                            {
+                                ticks: {                              
+                                    stepSize: 1,                                   
+                                    fontColor: '#000000',
+                                },
+                            }
+                        ],
+                        xAxes: [
+                            {
+                                ticks: {
+                                    callback: function (label, index, labels) {
+                                        var date = new Date(label);
+                                        return formatDate(date);
+                                    },
+                                    fontColor: '#000000',                                
+                                    type: 'linear',
+                                    position: 'bottom',
+                                    fontFamily: "'Helvetica Neue', 'Helvetica', 'Arial', sans-serif",
+                                },
+                         }
+                        ],
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (tooltipItem, data) {                                                              
+                                if(players[tooltipItem.index].playerName != "Restart"){
+                                    label = players[tooltipItem.index].playerName;
+                                    if(players[tooltipItem.index].connectOrDisconect){
+                                        label += " Connected"
+                                    }
+                                    else{
+                                        label += " Disconected"
+                                    }
+                                    return label;
+                                }
+                                else{
+                                    return "Server Restarted"
+                                }                                                            
+                            }
+                        }
+                    },                                                               
+                },               
+            });
+        }
+        
+        function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [month, day, year].join('/');
+    }
     </script>
-  </body>
+</body>
+
 </html>
