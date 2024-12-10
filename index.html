@@ -816,7 +816,7 @@
             $("tbody#whitelist_table").html("")
             $("div#whitelist_modals").html("")
             for(let i = 0; i < data.length; i++){
-                $("tbody#whitelist_table").append(`<tr><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeAdded)}</td><td>${data[i].whitelistedBy}</td><td><button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#ban_whitelist_button${data[i].whitelistedPlayerId}" id="whitelist_ban_button">Ban</button></td></tr>`);
+                $("tbody#whitelist_table").append(`<tr id="whitelist_table${data[i].playerName.replaceAll(" ", "-")}"><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeAdded)}</td><td>${data[i].whitelistedBy}</td><td><button type="button" class="btn btn-danger btn-block" data-toggle="modal" data-target="#ban_whitelist_button${data[i].whitelistedPlayerId}" id="whitelist_ban_button">Ban</button></td></tr>`);
                 $("div#whitelist_modals").append(`<div class="modal fade" id="ban_whitelist_button${data[i].whitelistedPlayerId}" tabindex="-1" role="dialog" aria-labelledby="ban_whitelist_button${data[i].whitelistedPlayerId}label" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -850,7 +850,7 @@
             $("tbody#ban_table").html("")
             $("div#ban_modals").html("")
             for(let i = 0; i < data.length; i++){
-                $("tbody#ban_table").append(`<tr><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeBanned)}</td><td>${data[i].bannedBy}</td><td>${data[i].reason}</td><td>${data[i].duration} Days</td><td><button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#whitelist_ban_button${data[i].bannedPlayerId}" id="whitelist_ban_button">Pardon</button></td></tr>`);
+                $("tbody#ban_table").append(`<tr id="ban_table${data[i].playerName.replaceAll(" ", "-")}"><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeBanned)}</td><td>${data[i].bannedBy}</td><td>${data[i].reason}</td><td>${data[i].duration} Days</td><td><button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#whitelist_ban_button${data[i].bannedPlayerId}" id="whitelist_ban_button">Pardon</button></td></tr>`);
                 $("div#ban_modals").append(`<div class="modal fade" id="whitelist_ban_button${data[i].bannedPlayerId}" tabindex="-1" role="dialog" aria-labelledby="whitelist_ban_button${data[i].whitelistedPlayerId}label" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
@@ -895,10 +895,12 @@
                 })
                 .then(data => {
                     console.log(data); // Handling the response data
-                    if(data != "Session Expired" || data != "Invalid Key"){                                             
-                        getWhitelistedPlayers();
-                        getBannedPlayers(); 
-                        getSubmissions();             
+                    if(data != "Session Expired" || data != "Invalid Key"){
+                        $("tr#ban_table" + player).prop("hidden", true);
+                        $("tr#table_" + player).prop("hidden", true);                                             
+                        setTimeout(getSubmissions, 1000); 
+                        setTimeout(getWhitelistedPlayers, 2000);
+                        setTimeout(getBannedPlayers, 3000);             
                     }                 
                     else{
                         loadLoginPanel();
@@ -933,6 +935,7 @@
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
                         console.log("Test");
+                        $("tr#table_" + player).prop("hidden", true);
                         getSubmissions();                                                                                                                                                                                                                 
                     }                 
                     else{
@@ -967,7 +970,8 @@
                 })
                 .then(data => {
                     console.log(data); // Handling the response data
-                    if(data != "Session Expired" || data != "Invalid Key"){                                             
+                    if(data != "Session Expired" || data != "Invalid Key"){
+                        $("tr#whitelist_table" + player).prop("hidden", true);                                             
                         getWhitelistedPlayers();                                           
                     }                 
                     else{
@@ -1012,9 +1016,10 @@
                 })
                 .then(data => {
                     console.log(data); // Handling the response data
-                    if(data != "Session Expired" || data != "Invalid Key"){                                             
-                        getWhitelistedPlayers();
-                        getBannedPlayers();                      
+                    if(data != "Session Expired" || data != "Invalid Key"){
+                        $("tr#whitelist_table" + player).prop("hidden", true);
+                        setTimeout(getWhitelistedPlayers, 1000);                                             
+                        setTimeout(getBannedPlayers, 2000);                                           
                     }                 
                     else{
                         loadLoginPanel();
