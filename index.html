@@ -116,8 +116,7 @@
             margin-left: -50px;
             width: 100px;
             height: 100px;
-        }
-           
+        }                
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
@@ -374,7 +373,8 @@
                                     <tbody id="submission_table">
 
                                     </tbody>
-                                </table>                                  
+                                </table>
+                                <div class="loader" id="table1-loader" hidden="hidden"></div>                                  
                               </div>
                             </div>
                         </div>                                               
@@ -394,6 +394,7 @@
 
                                         </tbody>
                                     </table>
+                                    <div class="loader" id="table2-loader" hidden="hidden"></div>
                                     <form>
                                           <div class="form-group">
                                             <label for="whitelistName">Add player to whitelist</label>
@@ -421,6 +422,7 @@
                                             
                                         </tbody>
                                     </table>
+                                    <div class="loader" id="table3-loader" hidden="hidden"></div>
                                     <form>
                                         <div class="form-group">
                                           <label for="banName">Ban player</label>
@@ -709,11 +711,14 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Invalid Login"){
-                        loadAdminPanel(data);
+                        $("div#table1-loader").prop("hidden", false);
+                        $("div#table2-loader").prop("hidden", false);
+                        $("div#table3-loader").prop("hidden", false);
+                        loadAdminPanel(data)                     
                         $("p#invalid_login").prop("hidden", true);
-                        getWhitelistedPlayers();
-                        getBannedPlayers();
-                        getSubmissions();                      
+                        setTimeout(getSubmissions, 1000); 
+                        setTimeout(getWhitelistedPlayers, 2000);
+                        setTimeout(getBannedPlayers, 3000);                                       
                     }
                     else{
                         loadLoginPanel();
@@ -724,10 +729,9 @@
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
                 });
-        }
-
+        }       
         function getSubmissions(){
-            fetch('https://stormylandsurvival.netlify.app/api/GetSubmissions', {
+            fetch('https://stormylandsurvival.netlify.app/api/GetSubmissions' + '?key=' + Token, {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
@@ -742,6 +746,8 @@
             .then(data => {
                 let dataJSON = JSON.parse(data);
                 constructSubmissionData(dataJSON);
+                $("div#table1-loader").prop("hidden", true);
+
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
@@ -749,7 +755,7 @@
         }
 
         function getWhitelistedPlayers(){
-            fetch('https://stormylandsurvival.netlify.app/api/GetWhitelistedPlayers', {
+            fetch('https://stormylandsurvival.netlify.app/api/GetWhitelistedPlayers' + '?key=' + Token, {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
@@ -764,6 +770,7 @@
             .then(data => {
                 let dataJSON = JSON.parse(data);
                 constructWhitelistData(dataJSON);
+                $("div#table2-loader").prop("hidden", true);
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
@@ -771,7 +778,7 @@
         }
 
         function getBannedPlayers(){
-            fetch('https://stormylandsurvival.netlify.app/api/GetBannedPlayers', {
+            fetch('https://stormylandsurvival.netlify.app/api/GetBannedPlayers' + '?key=' + Token, {
             method: 'GET', // HTTP method
             headers: {
                 'Accept': 'text/plain' // Headers specifying that the response should be in plain text
@@ -786,6 +793,7 @@
             .then(data => {
                 let dataJSON = JSON.parse(data);
                 constructBanData(dataJSON);
+                $("div#table3-loader").prop("hidden", true);
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
