@@ -716,9 +716,9 @@
                         $("div#table3-loader").prop("hidden", false);
                         loadAdminPanel(data)                     
                         $("p#invalid_login").prop("hidden", true);
-                        setTimeout(getSubmissions, 1000); 
-                        setTimeout(getWhitelistedPlayers, 2000);
-                        setTimeout(getBannedPlayers, 3000);                                       
+                        getSubmissions(); 
+                        getWhitelistedPlayers();
+                        getBannedPlayers();                                      
                     }
                     else{
                         loadLoginPanel();
@@ -898,9 +898,9 @@
                     if(data != "Session Expired" || data != "Invalid Key"){
                         $("tr#ban_table" + player).prop("hidden", true);
                         $("tr#table_" + player).prop("hidden", true);                                             
-                        setTimeout(getSubmissions, 1000); 
-                        setTimeout(getWhitelistedPlayers, 2000);
-                        setTimeout(getBannedPlayers, 3000);             
+                        getSubmissions(); 
+                        getWhitelistedPlayers();
+                        getBannedPlayers();             
                     }                 
                     else{
                         loadLoginPanel();
@@ -1018,8 +1018,8 @@
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
                         $("tr#whitelist_table" + player).prop("hidden", true);
-                        setTimeout(getWhitelistedPlayers, 1000);                                             
-                        setTimeout(getBannedPlayers, 2000);                                           
+                        getWhitelistedPlayers();                                             
+                        getBannedPlayers();                                           
                     }                 
                     else{
                         loadLoginPanel();
