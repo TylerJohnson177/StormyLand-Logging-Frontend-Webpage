@@ -799,7 +799,7 @@
                 for(let j = 0; j < data[i].strengths.length; j++){
                     strengths += data[i].strengths[j] + ", ";
                 }
-                $("tbody#submission_table").append(`<tr id="table_${data[i].gamerTag}"><th scope="row">${data[i].gamerTag}</th><td>${formatDate(data[i].timestamp)}</td><td>${data[i].year}</td><td>${data[i].skillLevel}</td><td><button type="button" class="btn btn-primary btn-block" id="submission_button" onclick="whitelist('${data[i].gamerTag.replaceAll(" ", "-")}')">Except</button></td><td><button type="button" class="btn btn-danger btn-block" id="submission_button" onclick="deny('${data[i].gamerTag.replaceAll(" ", "-")}')">Deny</button></td></tr>`);               
+                $("tbody#submission_table").append(`<tr id="table_${data[i].gamerTag}"><th scope="row">${data[i].gamerTag}</th><td>${formatDate(data[i].timestamp)}</td><td>${data[i].year}</td><td>${data[i].skillLevel}</td><td><button type="button" class="btn btn-primary btn-block" id="submission_button" onclick="whitelist('${data[i].gamerTag.replaceAll(" ", "-")}')">Accept</button></td><td><button type="button" class="btn btn-danger btn-block" id="submission_button" onclick="deny('${data[i].gamerTag.replaceAll(" ", "-")}')">Deny</button></td></tr>`);               
             }
         }
 
