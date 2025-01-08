@@ -403,10 +403,9 @@
                                     <table class="table">
                                         <thead>
                                             <th>Player</th>                                           
-                                            <th>Banned On</th>
-                                            <th>Banned By</th>
+                                            <th>Banned On</th>                                            
                                             <th>Reason</th>
-                                            <th>Duration</th>
+                                            <th>Expires</th>
                                             <th></th>
                                         </thead>
                                         <tbody id="ban_table">
@@ -841,7 +840,7 @@
             $("tbody#ban_table").html("")
             $("div#ban_modals").html("")
             for(let i = 0; i < data.length; i++){
-                $("tbody#ban_table").append(`<tr id="ban_table${data[i].playerName.replaceAll(" ", "-")}"><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeBanned)}</td><td>${data[i].bannedBy}</td><td>${data[i].reason}</td><td>${data[i].duration} Days</td><td><button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#whitelist_ban_button${data[i].bannedPlayerId}" id="whitelist_ban_button">Pardon</button></td></tr>`);
+                $("tbody#ban_table").append(`<tr id="ban_table${data[i].playerName.replaceAll(" ", "-")}"><th scope="row">${data[i].playerName}</th><td>${formatDate(data[i].timeBanned)}</td><td>${data[i].reason}</td><td>${formatDate(data[i].expires)}</td><td><button type="button" class="btn btn-secondary btn-block" data-toggle="modal" data-target="#whitelist_ban_button${data[i].bannedPlayerId}" id="whitelist_ban_button">Pardon</button></td></tr>`);
                 $("div#ban_modals").append(`<div class="modal fade" id="whitelist_ban_button${data[i].bannedPlayerId}" tabindex="-1" role="dialog" aria-labelledby="whitelist_ban_button${data[i].whitelistedPlayerId}label" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                         <div class="modal-content">
