@@ -623,7 +623,7 @@
                                     table += `<tr><th scope="row">${logs[i].timestamp}</th><td>${logs[i].player}</td><td>${logs[i].action}</td><td>${logs[i].block}</td><td>${logs[i].location}</td><td>${logs[i].dimension}</td></tr>`;
                                 }
                                 table += "</tbody></table>"
-                                if (logs.length == 100) {
+                                if (logs.length == 1000) {
                                     $("button#load_more").prop("hidden", false);
                                 }
                                 $("div#table-div").removeClass("table-div");
