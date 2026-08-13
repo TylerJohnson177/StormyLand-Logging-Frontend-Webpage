@@ -900,8 +900,18 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
-                        $("tr#ban_table" + player.replaceAll(" ", "-")).prop("hidden", true);
-                        $("tr#table_" + player.replaceAll(" ", "-")).prop("hidden", true);                                             
+                        
+                        try{
+                            let el = document.getElementById("table_", player.replaceAll(" ", "-"));
+                            let banEl = document.getElementById("ban_table", player.replaceAll(" ", "-"));
+                            el.hidden = true;
+                            banEl.hidden = true;   
+                        }
+                        catch{
+                            
+                        }                                                                   
+                        //$("tr#ban_table" + player.replaceAll(" ", "-")).prop("hidden", true);
+                        //$("tr#table_" + player.replaceAll(" ", "-")).prop("hidden", true);                                             
                         getSubmissions(); 
                         getWhitelistedPlayers();
                         getBannedPlayers();             
@@ -938,8 +948,14 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
-                        console.log("Test");
-                        $("tr#table_" + player.replaceAll(" ", "-")).prop("hidden", true);
+                        try{
+                            let el = document.getElementById("table_" + player.replaceAll(" ", "-"));
+                            el.hidden = true;   
+                        }
+                        catch{
+
+                        }                                            
+                        //$("tr#table_" + player.replaceAll(" ", "-")).prop("hidden", true);
                         getSubmissions();                                                                                                                                                                                                                 
                     }                 
                     else{
@@ -975,7 +991,14 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
-                        $("tr#whitelist_table" + player).prop("hidden", true);                                             
+                        try{
+                            let el = document.getElementById("whitelist_table" + player.replaceAll(" ", "-"));
+                            el.hidden = true;
+                        }
+                        catch{
+
+                        }                       
+                        //$("tr#whitelist_table" + player).prop("hidden", true);                                             
                         getWhitelistedPlayers();                                           
                     }                 
                     else{
@@ -1007,8 +1030,12 @@
                 }
             }
             else{
-                reason = $("#banReason" + player.replaceAll(" ", "-")).val();
-                duration = $("#banDuration" + player.replaceAll(" ", "-")).val();               
+                let reasonEl = document.getElementById("banReason" + player.replaceAll(" ", "-"));
+                let durationEl = document.getElementById("banDuration" + player.replaceAll(" ", "-"));
+                reason = reasonEl.value;
+                duration = durationEl.value;
+                //reason = $("#banReason" + player.replaceAll(" ", "-")).val();
+                //duration = $("#banDuration" + player.replaceAll(" ", "-")).val();               
             }
             
             fetch('https://stormylandsurvival.netlify.app/api/Ban?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&duration=' + duration + '&reason=' + reason + '&key=' + Token, {
@@ -1028,12 +1055,19 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
-                        $("tr#whitelist_table" + player.replaceAll(" ", "-")).prop("hidden", true);
+                        try{
+                            let el = document.getElementById("whitelist_table" + player.replaceAll(" ", "-"));
+                            el.hidden = true;
+                        }
+                        catch{
+
+                        }                        
+                        //$("tr#whitelist_table" + player.replaceAll(" ", "-")).prop("hidden", true);
                         getWhitelistedPlayers();                                             
                         getBannedPlayers();                                           
                     }                 
                     else{
-                        loadLoginPanel();
+                        loadLoginPanel();                       
                         $("p#invalid_login").html("Session Expired")
                         $("p#invalid_login").prop("hidden", false);                       
                     }
