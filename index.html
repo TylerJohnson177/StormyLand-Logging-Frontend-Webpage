@@ -805,7 +805,7 @@
                 for(let j = 0; j < data[i].strengths.length; j++){
                     strengths += data[i].strengths[j] + ", ";
                 }
-                $("tbody#submission_table").append(`<tr id="table_${data[i].gamerTag}"><th scope="row">${data[i].gamerTag}</th><td>${formatDate(data[i].timestamp)}</td><td>${data[i].year}</td><td>${data[i].skillLevel}</td><td><button type="button" class="btn btn-primary btn-block" id="submission_button" onclick="whitelist('${data[i].gamerTag.replaceAll(" ", "-")}')">Accept</button></td><td><button type="button" class="btn btn-danger btn-block" id="submission_button" onclick="deny('${data[i].gamerTag.replaceAll(" ", "-")}')">Deny</button></td></tr>`);               
+                $("tbody#submission_table").append(`<tr id="table_${data[i].gamerTag.replaceAll(" ", "-")}"><th scope="row">${data[i].gamerTag}</th><td>${formatDate(data[i].timestamp)}</td><td>${data[i].year}</td><td>${data[i].skillLevel}</td><td><button type="button" class="btn btn-primary btn-block" id="submission_button" onclick="whitelist('${data[i].gamerTag.replaceAll(" ", "-")}')">Accept</button></td><td><button type="button" class="btn btn-danger btn-block" id="submission_button" onclick="deny('${data[i].gamerTag.replaceAll(" ", "-")}')">Deny</button></td></tr>`);               
             }
         }
 
@@ -900,7 +900,7 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
-                        $("tr#ban_table" + player).prop("hidden", true);
+                        $("tr#ban_table" + player.replaceAll(" ", "-")).prop("hidden", true);
                         $("tr#table_" + player).prop("hidden", true);                                             
                         getSubmissions(); 
                         getWhitelistedPlayers();
@@ -1007,8 +1007,8 @@
                 }
             }
             else{
-                reason = $("#banReason" + player).val();
-                duration = $("#banDuration" + player).val();               
+                reason = $("#banReason" + player.replaceAll(" ", "-")).val();
+                duration = $("#banDuration" + player.replaceAll(" ", "-")).val();               
             }
             
             fetch('https://stormylandsurvival.netlify.app/api/Ban?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&duration=' + duration + '&reason=' + reason + '&key=' + Token, {
@@ -1028,7 +1028,7 @@
                 .then(data => {
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
-                        $("tr#whitelist_table" + player).prop("hidden", true);
+                        $("tr#whitelist_table" + player.replaceAll(" ", "-")).prop("hidden", true);
                         getWhitelistedPlayers();                                             
                         getBannedPlayers();                                           
                     }                 
