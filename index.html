@@ -390,6 +390,10 @@
                                             <label for="whitelistName">Add player to whitelist</label>
                                             <input type="username" class="form-control" id="whitelistName" placeholder="Enter Gamertag" required>
                                           </div>
+                                          <div style="margin-bottom: 20px;">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckWhitelist" style="margin-left: 5px; width: 20px; height: 20px;">
+                                                <label class="form-check-label" for="switchCheckWhitelist" style="margin-left: 30px; margin-top: 2px;">Java Player</label>
+                                          </div>
                                           <button type="button" class="btn btn-primary btn-block" onclick="whitelist()" id="whitelist_button">Add Player</button>
                                     </form>                                  
                                   </div>
@@ -422,6 +426,10 @@
                                           </div>
                                           <div class="form-group">                                           
                                             <input type="number" class="form-control" id="banDuration" placeholder="Enter Duration in Days" required>
+                                          </div>
+                                          <div style="margin-bottom: 20px;">
+                                                <input class="form-check-input" type="checkbox" role="switch" id="switchCheckBan" style="margin-left: 5px; width: 20px; height: 20px;">
+                                                <label class="form-check-label" for="switchCheckBan" style="margin-left: 30px; margin-top: 2px;">Java Player</label>
                                           </div>
                                         <button type="button" class="btn btn-danger btn-block" onclick="ban()" id="ban_button">Ban Player</button>
                                   </form>                                  
@@ -865,7 +873,14 @@
         function whitelist(player){
             if(!player){
                 player = $("#whitelistName").val();
-            }
+                let edition = document.getElementById("switchCheckWhitelist");
+                if(edition.checked){
+                    player = player + " (J)";
+                }
+                else{
+                    player = player + " (B)";
+                }
+            }           
             
             fetch('https://stormylandsurvival.netlify.app/api/Whitelist?player=' + player.replaceAll("-", "%20").replaceAll(" ", "%20") + '&key=' + Token, {
                 method: 'POST', // HTTP method
@@ -983,6 +998,13 @@
                 player = $("#banName").val();
                 reason = $("#banReason").val();
                 duration = $("#banDuration").val();
+                edition = document.getElementById("switchCheckBan");
+                if(edition.checked){
+                    player = player + " (J)";
+                }
+                else{
+                    player = player + " (B)";
+                }
             }
             else{
                 reason = $("#banReason" + player).val();
