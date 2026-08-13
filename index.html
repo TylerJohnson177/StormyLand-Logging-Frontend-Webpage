@@ -901,7 +901,7 @@
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
                         $("tr#ban_table" + player.replaceAll(" ", "-")).prop("hidden", true);
-                        $("tr#table_" + player).prop("hidden", true);                                             
+                        $("tr#table_" + player.replaceAll(" ", "-")).prop("hidden", true);                                             
                         getSubmissions(); 
                         getWhitelistedPlayers();
                         getBannedPlayers();             
@@ -939,7 +939,7 @@
                     console.log(data); // Handling the response data
                     if(data != "Session Expired" || data != "Invalid Key"){
                         console.log("Test");
-                        $("tr#table_" + player).prop("hidden", true);
+                        $("tr#table_" + player.replaceAll(" ", "-")).prop("hidden", true);
                         getSubmissions();                                                                                                                                                                                                                 
                     }                 
                     else{
